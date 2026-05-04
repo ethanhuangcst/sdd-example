@@ -29,7 +29,7 @@ export default function SentenceItem({ sentence }: { sentence: Sentence }) {
             letterSpacing: '0.05em',
           }}
         >
-          {sentence.isAI ? 'AI' : 'Human'}
+          {sentence.isAI ? 'AI' : '人类'}
         </span>
       </div>
     </div>

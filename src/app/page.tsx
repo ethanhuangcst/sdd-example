@@ -25,7 +25,7 @@ export default async function Page() {
     <main style={{ maxWidth: '672px', margin: '0 auto', padding: '40px 24px' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '32px' }}>
         <h1 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '28px', fontWeight: 'normal', color: '#2c2416', margin: 0 }}>
-          AI Story Chain
+          AI 故事接龙
         </h1>
         <ResetButton />
       </div>

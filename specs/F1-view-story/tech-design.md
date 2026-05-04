@@ -1,24 +1,24 @@
-# F1 — View Story: Tech Design
+# F1 — 查看故事：技术设计
 
-## Overview
+## 概述
 
-Server-side rendered page. On each request, Next.js fetches all sentences from PostgreSQL via Prisma and renders them directly — no client-side data fetching needed for this feature.
+服务端渲染页面。每次请求时，Next.js 通过 Prisma 从 PostgreSQL 获取所有句子并直接渲染——此功能无需客户端数据获取。
 
 ---
 
-## Files Involved
+## 涉及文件
 
-| File | Role |
+| 文件 | 职责 |
 |------|------|
-| `src/app/page.tsx` | Page component — fetches and renders sentence list |
-| `src/components/SentenceList.tsx` | Renders the list of sentences |
-| `src/components/SentenceItem.tsx` | Renders a single sentence row |
-| `src/lib/prisma.ts` | Prisma client singleton |
-| `prisma/schema.prisma` | `Sentence` model definition |
+| `src/app/page.tsx` | 页面组件——获取并渲染句子列表 |
+| `src/components/SentenceList.tsx` | 渲染句子列表 |
+| `src/components/SentenceItem.tsx` | 渲染单条句子行 |
+| `src/lib/prisma.ts` | Prisma 客户端单例 |
+| `prisma/schema.prisma` | `Sentence` 模型定义 |
 
 ---
 
-## Data Model
+## 数据模型
 
 ```prisma
 model Sentence {
@@ -32,22 +32,22 @@ model Sentence {
 
 ---
 
-## Data Flow
+## 数据流
 
 ```
-Browser GET /
-  → Next.js page.tsx (Server Component)
+浏览器 GET /
+  → Next.js page.tsx（服务端组件）
     → prisma.sentence.findMany({ orderBy: { createdAt: 'asc' } })
-    → renders <SentenceList sentences={sentences} />
+    → 渲染 <SentenceList sentences={sentences} />
 ```
 
-No API route is needed for F1. Data is fetched directly in the Server Component.
+F1 不需要 API 路由。数据直接在服务端组件中获取。
 
 ---
 
-## Component Design
+## 组件设计
 
-### `page.tsx` (Server Component)
+### `page.tsx`（服务端组件）
 
 ```typescript
 import { prisma } from '@/lib/prisma'
@@ -63,24 +63,24 @@ export default async function Page() {
 
 ### `SentenceList.tsx`
 
-Props: `sentences: Sentence[]`
+Props：`sentences: Sentence[]`
 
-- If empty → render empty state message
-- Otherwise → render `<SentenceItem>` for each sentence
+- 若为空 → 渲染空状态消息
+- 否则 → 为每条句子渲染 `<SentenceItem>`
 
 ### `SentenceItem.tsx`
 
-Props: `sentence: Sentence`
+Props：`sentence: Sentence`
 
-Displays per row:
-- `content` — the sentence text
-- `author` — name (or "AI")
-- `isAI` — badge: `Human` | `AI`
-- `createdAt` — formatted timestamp (e.g. `HH:mm`)
+每行显示：
+- `content` — 句子文本
+- `author` — 姓名（或 "AI"）
+- `isAI` — 徽章：`人类` | `AI`
+- `createdAt` — 格式化时间戳（如 `HH:mm`）
 
 ---
 
-## Shared Type
+## 共享类型
 
 ```typescript
 // src/types.ts
@@ -95,16 +95,16 @@ export type Sentence = {
 
 ---
 
-## Empty State
+## 空状态
 
-When `sentences.length === 0`, display:
+当 `sentences.length === 0` 时，显示：
 
-> "No story yet. Be the first to add a sentence!"
+> "还没有故事。成为第一个添加句子的人吧！"
 
 ---
 
-## Rendering Strategy
+## 渲染策略
 
-- **SSR** (no `'use client'`) — page is rendered on the server on every request
-- No loading spinner needed for F1 (data is ready before HTML is sent)
-- No pagination — story is expected to stay short during the course demo
+- **SSR**（无 `'use client'`）——每次请求时在服务端渲染页面
+- F1 无需加载动画（HTML 发送前数据已就绪）
+- 无分页——课程演示期间故事预计保持简短

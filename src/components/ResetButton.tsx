@@ -32,20 +32,20 @@ export default function ResetButton() {
   if (confirming) {
     return (
       <span style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-        <span style={{ fontSize: '13px', color: muted, fontFamily: 'ui-rounded, Helvetica Neue, sans-serif' }}>Sure?</span>
+        <span style={{ fontSize: '13px', color: muted, fontFamily: 'ui-rounded, Helvetica Neue, sans-serif' }}>确定吗？</span>
         <button
           data-testid="btn-reset-confirm"
           onClick={handleConfirm}
           style={{ ...btnBase, background: '#b94040', color: '#fff', border: '1px solid #b94040' }}
         >
-          Yes, reset
+          确认重置
         </button>
         <button
           data-testid="btn-reset-cancel"
           onClick={() => setConfirming(false)}
           style={{ ...btnBase, background: 'transparent', color: muted }}
         >
-          Cancel
+          取消
         </button>
       </span>
     )
@@ -59,7 +59,7 @@ export default function ResetButton() {
       disabled={submitting}
       style={{ ...btnBase, background: 'transparent', color: muted, opacity: submitting ? 0.5 : 1 }}
     >
-      Start Over
+      重新开始
     </button>
   )
 }

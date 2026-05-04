@@ -1,25 +1,25 @@
-# F2 — Add a Sentence: Tech Design
+# F2 — 添加句子：技术设计
 
-## Overview
+## 概述
 
-F2 adds a client-side form to the home page. The form collects author name and sentence content, validates both fields client-side, then POSTs to `/api/sentences`. The page re-fetches and re-renders after a successful submission.
+F2 在首页添加一个客户端表单。表单收集作者姓名和句子内容，客户端验证两个字段后，POST 到 `/api/sentences`。提交成功后页面重新获取并渲染。
 
 ---
 
-## Files Involved
+## 涉及文件
 
-| File | Role |
+| 文件 | 职责 |
 |------|------|
-| `src/components/AddSentenceForm.tsx` | Client component — form UI, validation, submission |
-| `src/lib/validation.ts` | Pure validation function (unit-testable) |
-| `src/app/api/sentences/route.ts` | Add `POST` handler — validate, save to DB |
-| `src/app/page.tsx` | Include `<AddSentenceForm>` below the sentence list |
+| `src/components/AddSentenceForm.tsx` | 客户端组件——表单 UI、验证、提交 |
+| `src/lib/validation.ts` | 纯验证函数（可单元测试） |
+| `src/app/api/sentences/route.ts` | 添加 `POST` 处理器——验证、保存到数据库 |
+| `src/app/page.tsx` | 在句子列表下方引入 `<AddSentenceForm>` |
 
 ---
 
-## Validation Logic
+## 验证逻辑
 
-Extracted into `src/lib/validation.ts` so it can be unit-tested independently:
+提取到 `src/lib/validation.ts` 以便独立单元测试：
 
 ```typescript
 export type FormInput = { author: string; content: string }
@@ -27,76 +27,76 @@ export type FormErrors = Partial<Record<keyof FormInput, string>>
 
 export function validateSentenceInput(input: FormInput): FormErrors {
   const errors: FormErrors = {}
-  if (!input.author.trim()) errors.author = 'Author name is required'
-  if (!input.content.trim()) errors.content = 'Sentence is required'
+  if (!input.author.trim()) errors.author = '作者姓名为必填项'
+  if (!input.content.trim()) errors.content = '句子为必填项'
   return errors
 }
 ```
 
 ---
 
-## API: POST /api/sentences
+## API：POST /api/sentences
 
-Request body:
+请求体：
 ```json
-{ "author": "Alice", "content": "The dragon awoke." }
+{ "author": "Alice", "content": "龙在黎明时苏醒。" }
 ```
 
-Behavior:
-1. Validate — return `400` if author or content is empty
-2. Save user sentence to DB (`isAI: false`)
-3. Return `201` with the saved sentence
+行为：
+1. 验证——若作者或内容为空则返回 `400`
+2. 将用户句子保存到数据库（`isAI: false`）
+3. 返回 `201` 及已保存的句子
 
-Note: AI continuation (F3) will be added in the next feature. F2 only saves the human sentence.
+注意：AI 续写（F3）将在下一个功能中添加。F2 仅保存人类句子。
 
-Response (201):
+响应（201）：
 ```json
-{ "id": 5, "author": "Alice", "content": "The dragon awoke.", "isAI": false, "createdAt": "..." }
+{ "id": 5, "author": "Alice", "content": "龙在黎明时苏醒。", "isAI": false, "createdAt": "..." }
 ```
 
 ---
 
-## Component: AddSentenceForm
+## 组件：AddSentenceForm
 
-`'use client'` — needs `useState` for form state and submission.
+`'use client'` — 需要 `useState` 管理表单状态和提交。
 
-State:
+状态：
 - `author: string`
 - `content: string`
 - `errors: FormErrors`
 - `submitting: boolean`
 
-On submit:
-1. Run `validateSentenceInput` — set errors and abort if invalid
-2. Set `submitting = true`, disable submit button
+提交时：
+1. 运行 `validateSentenceInput`——若无效则设置错误并中止
+2. 设置 `submitting = true`，禁用提交按钮
 3. `POST /api/sentences`
-4. On success: clear fields, errors; trigger page refresh via `router.refresh()`
-5. On failure: show generic error; re-enable button
-6. Set `submitting = false`
+4. 成功时：清空字段和错误；通过 `router.refresh()` 触发页面刷新
+5. 失败时：显示通用错误；重新启用按钮
+6. 设置 `submitting = false`
 
-Page refresh strategy: `router.refresh()` from `next/navigation` — re-runs the Server Component data fetch without a full navigation.
+页面刷新策略：使用 `next/navigation` 的 `router.refresh()`——重新运行服务端组件数据获取，无需完整导航。
 
 ---
 
-## UI Layout
+## UI 布局
 
 ```
 ┌─────────────────────────────────────────┐
-│  Your name                              │
+│  您的姓名                               │
 │  ┌─────────────────────────────────┐    │
 │  │ Alice                           │    │
 │  └─────────────────────────────────┘    │
 │                                         │
-│  Your sentence                          │
+│  您的句子                               │
 │  ┌─────────────────────────────────┐    │
-│  │ The dragon awoke.               │    │
+│  │ 龙在黎明时苏醒。                │    │
 │  └─────────────────────────────────┘    │
 │                                         │
-│  [  Add to story  ]                     │
+│  [  添加到故事  ]                       │
 └─────────────────────────────────────────┘
 ```
 
-Styling (inline, matching UI guideline):
-- Inputs: cream background `#faf7f2`, border `#e0d5c5`, serif font, `padding: 8px 12px`
-- Error text: warm red `#b94040`, `font-size: 12px`, below the field
-- Submit button: amber fill `#c17f3e`, ink-dark text `#2c2416`, `rounded-md`, disabled state: `opacity: 0.5`
+样式（内联，符合 UI 规范）：
+- 输入框：奶油色背景 `#faf7f2`，边框 `#e0d5c5`，衬线字体，`padding: 8px 12px`
+- 错误文字：暖红色 `#b94040`，`font-size: 12px`，显示在字段下方
+- 提交按钮：琥珀色填充 `#c17f3e`，深墨色文字 `#2c2416`，`rounded-md`，禁用状态：`opacity: 0.5`

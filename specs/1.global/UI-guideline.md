@@ -1,107 +1,107 @@
-# UI Guideline: AI Story Chain
+# UI 设计规范：AI 故事接龙
 
-## Aesthetic Direction
+## 视觉风格
 
-**Theme: Warm Notebook**
+**主题：温暖笔记本**
 
-Like writing in a cozy journal on a rainy afternoon. Cream paper, ink-dark text, soft warm accents. Relaxed, casual, and simple — nothing competes for attention.
-
----
-
-## Tech Constraints
-
-- Next.js 15 + React 19 (App Router)
-- Tailwind CSS 4 only — no external UI libraries, no CDN fonts
-- No additional npm packages for UI
+如同在雨天午后写日记。奶油色纸张、深墨色文字、柔和暖色调。放松、随意、简洁——没有任何元素争夺注意力。
 
 ---
 
-## Color Palette
+## 技术约束
+
+- Next.js 15 + React 19（App Router）
+- 仅使用 Tailwind CSS 4——不引入外部 UI 库，不使用 CDN 字体
+- 不添加额外的 UI npm 包
+
+---
+
+## 色彩方案
 
 ```css
-/* Tailwind CSS 4 custom theme — defined in globals.css */
---color-bg:        #faf7f2   /* warm cream — page background */
---color-surface:   #f3ede3   /* slightly darker cream — cards */
---color-border:    #e0d5c5   /* warm gray — dividers, borders */
---color-ink:       #2c2416   /* near-black warm — primary text */
---color-muted:     #8a7a65   /* warm gray — timestamps, labels */
---color-accent:    #c17f3e   /* amber — AI badge, highlights */
---color-human:     #5a7a5a   /* muted sage green — Human badge */
+/* Tailwind CSS 4 自定义主题 — 在 globals.css 中定义 */
+--color-bg:        #faf7f2   /* 温暖奶油色 — 页面背景 */
+--color-surface:   #f3ede3   /* 略深奶油色 — 卡片 */
+--color-border:    #e0d5c5   /* 暖灰色 — 分隔线、边框 */
+--color-ink:       #2c2416   /* 近黑暖色 — 主要文字 */
+--color-muted:     #8a7a65   /* 暖灰色 — 时间戳、标签 */
+--color-accent:    #c17f3e   /* 琥珀色 — AI 徽章、高亮 */
+--color-human:     #5a7a5a   /* 柔和鼠尾草绿 — 人类徽章 */
 ```
 
 ---
 
-## Typography
+## 字体排版
 
-Use system serif stack — no external fonts needed, feels like a printed page:
+使用系统衬线字体栈——无需外部字体，有印刷页面的质感：
 
 ```css
 --font-body: Georgia, 'Times New Roman', serif;
---font-ui:   ui-rounded, 'Helvetica Neue', sans-serif;  /* labels, buttons */
+--font-ui:   ui-rounded, 'Helvetica Neue', sans-serif;  /* 标签、按钮 */
 ```
 
-- Body text: `font-serif`, `text-base` (16px), `leading-relaxed`
-- Timestamps / labels: `font-sans`, `text-xs`, `tracking-wide`, `uppercase`
-- Page title: `font-serif`, `text-3xl`, `font-normal` — not bold, not loud
+- 正文：`font-serif`，`text-base`（16px），`leading-relaxed`
+- 时间戳 / 标签：`font-sans`，`text-xs`，`tracking-wide`，`uppercase`
+- 页面标题：`font-serif`，`text-3xl`，`font-normal`——不加粗，不张扬
 
 ---
 
-## Spacing & Layout
+## 间距与布局
 
-- Max content width: `max-w-2xl mx-auto` — narrow column, like a journal page
-- Page padding: `px-6 py-10`
-- Between sentence items: `gap-4`
-- Card padding: `p-4`
+- 内容最大宽度：`max-w-2xl mx-auto`——窄列，如日记页面
+- 页面内边距：`px-6 py-10`
+- 句子条目间距：`gap-4`
+- 卡片内边距：`p-4`
 
 ---
 
-## Components
+## 组件
 
-### Sentence Item
+### 句子条目
 
 ```
 ┌─────────────────────────────────────────┐
-│  "Once upon a time in a quiet village…" │
+│  "从前在一个宁静的村庄……"                │
 │                                         │
-│  Alice          2 min ago    [Human]    │
+│  Alice          2 分钟前    [人类]       │
 └─────────────────────────────────────────┘
 ```
 
-- Background: `--color-surface`, rounded-lg, subtle border `--color-border`
-- Content: serif, `text-base`, `text-ink`
-- Footer row: muted text, small caps label badge
-- AI badge: amber background, warm white text
-- Human badge: sage green background, white text
+- 背景：`--color-surface`，rounded-lg，细边框 `--color-border`
+- 内容：衬线字体，`text-base`，`text-ink`
+- 底部行：柔和文字，小型大写字母徽章
+- AI 徽章：琥珀色背景，暖白色文字
+- 人类徽章：鼠尾草绿背景，白色文字
 
-### Empty State
+### 空状态
 
-Centered, muted italic serif text:
+居中，柔和斜体衬线文字：
 
-> *"No story yet. Be the first to add a sentence."*
+> *"还没有故事。成为第一个添加句子的人吧。"*
 
-### Buttons
+### 按钮
 
-- Primary (Submit): warm amber fill, ink-dark text, no rounded pill — `rounded-md`
-- Danger (Reset): ghost style, muted border, only shows red on hover
-
----
-
-## Motion
-
-Minimal. Only one effect:
-
-- New sentence items fade + slide up on mount: `opacity-0 → opacity-100`, `translateY(8px) → 0`, duration `300ms ease-out`
-- No loaders, no spinners — keep it still and calm
+- 主要（提交）：暖琥珀色填充，深墨色文字，非圆角胶囊——`rounded-md`
+- 危险（重置）：幽灵样式，柔和边框，悬停时才显示红色
 
 ---
 
-## Do / Don't
+## 动效
 
-| Do | Don't |
-|----|-------|
-| Warm cream backgrounds | White or gray backgrounds |
-| Serif body text | Sans-serif body text |
-| Subtle borders | Drop shadows |
-| Lowercase casual labels | ALL-CAPS aggressive labels |
-| Generous line height | Tight, dense text |
-| One accent color (amber) | Multiple competing colors |
+极简。只有一种效果：
+
+- 新句子条目挂载时淡入 + 向上滑动：`opacity-0 → opacity-100`，`translateY(8px) → 0`，时长 `300ms ease-out`
+- 无加载动画，无旋转图标——保持静谧平和
+
+---
+
+## 应做 / 不应做
+
+| 应做 | 不应做 |
+|------|--------|
+| 温暖奶油色背景 | 白色或灰色背景 |
+| 衬线正文字体 | 无衬线正文字体 |
+| 细腻边框 | 投影阴影 |
+| 小写随意标签 | 全大写强硬标签 |
+| 宽松行高 | 紧凑密集文字 |
+| 单一强调色（琥珀色） | 多种竞争色彩 |

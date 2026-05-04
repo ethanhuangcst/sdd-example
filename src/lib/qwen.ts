@@ -11,7 +11,7 @@ export async function generateOpener(): Promise<string | null> {
         messages: [
           {
             role: 'user',
-            content: 'Start a short creative story with exactly one sentence. Output only that sentence, nothing else.',
+            content: '用中文开始一个简短的创意故事，恰好一句话。只输出那句话，不要其他内容。',
           },
         ],
         max_tokens: 80,
@@ -38,7 +38,7 @@ export async function generateContinuation(context: string[]): Promise<string | 
         messages: [
           {
             role: 'user',
-            content: `Continue this story with exactly one sentence. Output only that sentence, nothing else.\n\nStory so far:\n${story}`,
+            content: `用中文续写这个故事，恰好一句话。只输出那句话，不要其他内容。\n\n目前的故事：\n${story}`,
           },
         ],
         max_tokens: 80,

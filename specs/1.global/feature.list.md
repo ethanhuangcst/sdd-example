@@ -1,6 +1,6 @@
-# Feature List: AI Story Chain
+# 功能列表：AI 故事接龙
 
-- **F1** — View Story: Display all story sentences in chronological order, showing author, timestamp, and whether each sentence was written by a human or AI.
-- **F2** — Add a Sentence: Allow a visitor to submit their name and a sentence to continue the story. The sentence is saved to the database and immediately visible.
-- **F3** — AI Auto-Continuation: After each human sentence is saved, automatically call the Qwen AI to generate and save a contextually coherent follow-up sentence.
-- **F4** — Reset Story: Clear all sentences from the database so the story can start fresh from the beginning.
+- **F1** — 查看故事：按时间顺序显示所有故事句子，展示作者、时间戳，以及每句话是由人类还是 AI 撰写。
+- **F2** — 添加句子：允许访客提交姓名和一句话来续写故事，句子保存到数据库后立即可见。
+- **F3** — AI 自动续写：每条人类句子保存后，自动调用 Qwen AI 生成并保存一句与上下文连贯的续写句子。
+- **F4** — 重置故事：清空数据库中的所有句子，让故事从头开始。

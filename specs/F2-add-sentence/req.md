@@ -1,43 +1,43 @@
-# F2 — Add a Sentence
+# F2 — 添加句子
 
-## User Story
+## 用户故事
 
-As a visitor,
-I want to submit my name and a sentence to continue the story,
-So that I can contribute to the collaborative narrative.
+作为访客，
+我希望提交我的姓名和一句话来续写故事，
+以便我能为协作叙事做出贡献。
 
 ---
 
-## Acceptance Criteria
+## 验收标准
 
 ```gherkin
-Scenario: Successfully submit a sentence
-  Given the story page is open
-  When the visitor enters their name and a sentence and submits the form
-  Then the sentence is saved
-  And the sentence appears in the story list
-  And the form fields are cleared after submission
+场景：成功提交句子
+  假设 故事页面已打开
+  当 访客输入姓名和一句话并提交表单
+  那么 句子被保存
+  并且 句子出现在故事列表中
+  并且 提交后表单字段被清空
 
-Scenario: Reject submission with empty author name
-  Given the story page is open
-  When the visitor leaves the author name empty and submits the form
-  Then the form is not submitted
-  And an error message indicates the author name is required
+场景：拒绝空作者姓名的提交
+  假设 故事页面已打开
+  当 访客未填写作者姓名就提交表单
+  那么 表单未被提交
+  并且 显示错误消息提示作者姓名为必填项
 
-Scenario: Reject submission with empty sentence
-  Given the story page is open
-  When the visitor leaves the sentence empty and submits the form
-  Then the form is not submitted
-  And an error message indicates the sentence is required
+场景：拒绝空句子的提交
+  假设 故事页面已打开
+  当 访客未填写句子就提交表单
+  那么 表单未被提交
+  并且 显示错误消息提示句子为必填项
 
-Scenario: Submitted sentence is attributed to the correct author
-  Given the story page is open
-  When the visitor enters the name "Alice" and submits a sentence
-  Then the sentence appears in the story list with "Alice" as the author
-  And it is labeled as "Human"
+场景：提交的句子归属于正确的作者
+  假设 故事页面已打开
+  当 访客输入姓名 "Alice" 并提交一句话
+  那么 句子出现在故事列表中，作者显示为 "Alice"
+  并且 标记为 "人类"
 
-Scenario: Submit button is disabled while submission is in progress
-  Given the visitor has filled in both fields
-  When the visitor submits the form
-  Then the submit button becomes disabled until the submission completes
+场景：提交进行中时提交按钮被禁用
+  假设 访客已填写两个字段
+  当 访客提交表单
+  那么 提交按钮在提交完成前保持禁用状态
 ```

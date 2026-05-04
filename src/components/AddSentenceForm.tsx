@@ -46,7 +46,7 @@ export default function AddSentenceForm() {
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={labelStyle}>Your name</label>
+        <label style={labelStyle}>您的姓名</label>
         <input
           data-testid="input-author"
           value={author}
@@ -56,7 +56,7 @@ export default function AddSentenceForm() {
         {errors.author && <p data-testid="error-author" style={errorStyle}>{errors.author}</p>}
       </div>
       <div>
-        <label style={labelStyle}>Your sentence</label>
+        <label style={labelStyle}>您的句子</label>
         <input
           data-testid="input-content"
           value={content}
@@ -76,7 +76,7 @@ export default function AddSentenceForm() {
           cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1,
         }}
       >
-        Add to story
+        添加到故事
       </button>
     </form>
   )

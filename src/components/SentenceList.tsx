@@ -14,7 +14,7 @@ export default function SentenceList({ sentences }: { sentences: Sentence[] }) {
           marginTop: '48px',
         }}
       >
-        No story yet. Be the first to add a sentence.
+        还没有故事，成为第一个添加句子的人吧。
       </p>
     )
   }

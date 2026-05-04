@@ -1,66 +1,66 @@
-# F4 — Reset Story: Test Plan
+# F4 — 重置故事：测试计划
 
-## Scope
+## 范围
 
-F4 adds a client-side button with a confirm dialog and calls the existing `/api/reset` endpoint.
-Test layers: **Integration** (POST /api/reset) + **E2E** (browser confirm flow).
-Unit tests: not applicable — no isolated logic.
-
----
-
-## AC → Test Mapping
-
-| Acceptance Criteria | Test Layer | Test ID |
-|---------------------|------------|---------|
-| Reset button visible | E2E | E2E-F4-01 |
-| Clicking shows confirmation | E2E | E2E-F4-02 |
-| Confirming clears all sentences | Integration + E2E | IT-F4-01, E2E-F4-02 |
-| Cancelling keeps story intact | E2E | E2E-F4-03 |
+F4 添加一个带确认对话框的客户端按钮，调用现有 `/api/reset` 端点。
+测试层级：**集成测试**（POST /api/reset）+ **E2E**（浏览器确认流程）。
+单元测试：不适用——无独立逻辑。
 
 ---
 
-## Integration Tests
+## 验收标准 → 测试映射
 
-File: `tests/integration/sentences.test.ts`
+| 验收标准 | 测试层级 | 测试 ID |
+|----------|----------|---------|
+| 重置按钮可见 | E2E | E2E-F4-01 |
+| 点击显示确认提示 | E2E | E2E-F4-02 |
+| 确认后清空所有句子 | 集成 + E2E | IT-F4-01, E2E-F4-02 |
+| 取消后故事保持不变 | E2E | E2E-F4-03 |
 
-### IT-F4-01 — POST /api/reset deletes all sentences
+---
+
+## 集成测试
+
+文件：`tests/integration/sentences.test.ts`
+
+### IT-F4-01 — POST /api/reset 删除所有句子
 
 ```
-Arrange: insert 3 sentences
-Act:     POST /api/reset
-Assert:  status 200
-         DB has 0 sentences
+准备：插入 3 条句子
+执行：POST /api/reset
+断言：状态码 200
+      数据库中有 0 条句子
 ```
 
 ---
 
-## E2E Tests
+## E2E 测试
 
-File: `tests/e2e/story.spec.ts`
+文件：`tests/e2e/story.spec.ts`
 
-### E2E-F4-01 — Reset button is visible
-
-```
-Arrange: seed 1 sentence
-Act:     navigate to /
-Assert:  "Start Over" button is visible
-```
-
-### E2E-F4-02 — Confirming reset clears the story
+### E2E-F4-01 — 重置按钮可见
 
 ```
-Arrange: seed 1 sentence, navigate to /
-Act:     click "Start Over"
-         accept the confirm dialog
-         waitForLoadState('networkidle')
-Assert:  sentence items count is 0 or 1 (AI opener may regenerate)
+准备：预置 1 条句子
+执行：导航到 /
+断言："重新开始" 按钮可见
 ```
 
-### E2E-F4-03 — Cancelling reset keeps the story
+### E2E-F4-02 — 确认重置后清空故事
 
 ```
-Arrange: seed 1 sentence, navigate to /
-Act:     click "Start Over"
-         dismiss the confirm dialog
-Assert:  sentence items count is still 1
+准备：预置 1 条句子，导航到 /
+执行：点击 "重新开始"
+      接受确认对话框
+      waitForLoadState('networkidle')
+断言：句子条目数量为 0 或 1（AI 开篇句可能重新生成）
+```
+
+### E2E-F4-03 — 取消重置保持故事不变
+
+```
+准备：预置 1 条句子，导航到 /
+执行：点击 "重新开始"
+      关闭确认对话框
+断言：句子条目数量仍为 1
 ```

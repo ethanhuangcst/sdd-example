@@ -1,39 +1,39 @@
-# F3 — AI Auto-Continuation
+# F3 — AI 自动续写
 
-## User Story
+## 用户故事
 
-As a visitor,
-I want the AI to automatically add a follow-up sentence after I submit mine,
-So that the story keeps flowing without waiting for another human contributor.
+作为访客，
+我希望在我提交句子后 AI 自动添加一句续写，
+以便故事在没有其他人类贡献者的情况下也能持续流动。
 
 ---
 
-## Acceptance Criteria
+## 验收标准
 
 ```gherkin
-Scenario: AI generates a continuation after a human sentence is submitted
-  Given the story has at least one sentence
-  When a visitor submits a new sentence
-  Then the AI automatically generates one follow-up sentence
-  And that sentence is saved to the story
-  And it appears in the story list immediately after the human sentence
-  And it is labeled as "AI"
+场景：人类句子提交后 AI 生成续写
+  假设 故事至少有一句话
+  当 访客提交一句新话
+  那么 AI 自动生成一句续写
+  并且 该句话被保存到故事中
+  并且 紧接在人类句子之后出现在故事列表中
+  并且 标记为 "AI"
 
-Scenario: AI continuation is contextually coherent
-  Given the story contains several sentences establishing a narrative
-  When a visitor submits a new sentence
-  Then the AI continuation relates to the existing story context
-  And it does not repeat the human sentence verbatim
+场景：AI 续写与上下文连贯
+  假设 故事包含若干建立叙事的句子
+  当 访客提交一句新话
+  那么 AI 续写与已有故事上下文相关
+  并且 不逐字重复人类句子
 
-Scenario: AI continuation fails gracefully
-  Given the AI service is unavailable
-  When a visitor submits a sentence
-  Then the human sentence is still saved and visible
-  And no AI sentence is added
-  And the visitor sees no error caused by the AI failure
+场景：AI 续写失败时优雅降级
+  假设 AI 服务不可用
+  当 访客提交一句话
+  那么 人类句子仍被保存并可见
+  并且 不添加 AI 句子
+  并且 访客看不到由 AI 失败引起的任何错误
 
-Scenario: Only one AI sentence is generated per human submission
-  Given a visitor submits one sentence
-  When the submission completes
-  Then exactly one AI sentence is added to the story
+场景：每次人类提交只生成一句 AI 续写
+  假设 访客提交了一句话
+  当 提交完成
+  那么 故事中恰好添加一句 AI 句子
 ```

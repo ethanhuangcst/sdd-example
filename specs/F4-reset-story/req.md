@@ -1,35 +1,35 @@
-# F4 — Reset Story
+# F4 — 重置故事
 
-## User Story
+## 用户故事
 
-As a visitor,
-I want to reset the story back to empty with a confirmation step,
-So that I can start a brand new story without accidentally losing the current one.
+作为访客，
+我希望通过确认步骤将故事重置为空，
+以便在不意外丢失当前故事的情况下开始一个全新的故事。
 
 ---
 
-## Acceptance Criteria
+## 验收标准
 
 ```gherkin
-Scenario: Reset button is visible on the page
-  Given the story has at least one sentence
-  When the visitor views the page
-  Then a "Start Over" button is visible
+场景：页面上可见重置按钮
+  假设 故事至少有一句话
+  当 访客查看页面
+  那么 "重新开始" 按钮可见
 
-Scenario: Clicking reset shows a confirmation prompt
-  Given the story has at least one sentence
-  When the visitor clicks "Start Over"
-  Then a confirmation prompt appears asking if they are sure
+场景：点击重置显示确认提示
+  假设 故事至少有一句话
+  当 访客点击 "重新开始"
+  那么 出现确认提示询问是否确定
 
-Scenario: Confirming reset clears all sentences
-  Given the confirmation prompt is shown
-  When the visitor confirms the reset
-  Then all sentences are deleted
-  And the page shows the AI-generated opener (or empty state if AI fails)
+场景：确认重置后清空所有句子
+  假设 确认提示已显示
+  当 访客确认重置
+  那么 所有句子被删除
+  并且 页面显示 AI 生成的开篇句（若 AI 失败则显示空状态）
 
-Scenario: Cancelling reset keeps the story intact
-  Given the confirmation prompt is shown
-  When the visitor cancels
-  Then no sentences are deleted
-  And the story remains unchanged
+场景：取消重置保持故事不变
+  假设 确认提示已显示
+  当 访客取消
+  那么 没有句子被删除
+  并且 故事保持不变
 ```

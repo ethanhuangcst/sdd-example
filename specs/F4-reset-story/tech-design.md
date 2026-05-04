@@ -1,29 +1,29 @@
-# F4 — Reset Story: Tech Design
+# F4 — 重置故事：技术设计
 
-## Overview
+## 概述
 
-F4 adds a "Start Over" button with a browser `confirm()` dialog. On confirmation, it calls `POST /api/reset`, then triggers `router.refresh()`. No new API routes needed — `/api/reset` already exists.
-
----
-
-## Files Changed
-
-| File | Change |
-|------|--------|
-| `src/components/ResetButton.tsx` | New client component — button + confirm dialog |
-| `src/app/page.tsx` | Add `<ResetButton />` below the form |
+F4 添加一个带浏览器 `confirm()` 对话框的"重新开始"按钮。确认后调用 `POST /api/reset`，再触发 `router.refresh()`。无需新的 API 路由——`/api/reset` 已存在。
 
 ---
 
-## Component: ResetButton
+## 修改文件
 
-`'use client'` — needs `useState` for submitting state and `useRouter` for refresh.
+| 文件 | 变更 |
+|------|------|
+| `src/components/ResetButton.tsx` | 新客户端组件——按钮 + 确认对话框 |
+| `src/app/page.tsx` | 在表单下方添加 `<ResetButton />` |
+
+---
+
+## 组件：ResetButton
+
+`'use client'` — 需要 `useState` 管理提交状态，`useRouter` 用于刷新。
 
 ```
-On click:
-  1. window.confirm("Start over? All sentences will be deleted.")
-  2. If cancelled → do nothing
-  3. If confirmed → POST /api/reset → router.refresh()
+点击时：
+  1. window.confirm("重新开始？所有句子将被删除。")
+  2. 若取消 → 不做任何操作
+  3. 若确认 → POST /api/reset → router.refresh()
 ```
 
-Styling: ghost button, muted border, turns red on hover (per UI guideline).
+样式：幽灵按钮，柔和边框，悬停时变红（符合 UI 规范）。

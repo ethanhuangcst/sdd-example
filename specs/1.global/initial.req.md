@@ -1,44 +1,44 @@
-# Initial Requirements: AI Story Chain
+# 初始需求：AI 故事接龙
 
-## Background
+## 背景
 
-A lightweight web app where multiple users collaboratively write a story. Each person contributes one sentence, and the AI automatically continues with the next — the story keeps growing.
-
----
-
-## Core Features
-
-### 1. View the Current Story
-
-- Open the page and see all existing sentences in chronological order
-- Each sentence shows: content, author (username), timestamp, source (Human / AI)
-
-### 2. Add a Sentence
-
-- Form: enter a username + one sentence to continue the story
-- On submit:
-  1. The user's sentence is saved to the database
-  2. Qwen AI is called automatically to continue the story based on context
-  3. The AI's sentence is also saved to the database
-  4. The page refreshes to show the updated story
-
-### 3. Reset the Story
-
-- A "Start Over" button clears all sentences so the story can begin again
+一个轻量级 Web 应用，多名用户协作共写一个故事。每人贡献一句话，AI 自动续写下一句——故事不断延伸。
 
 ---
 
-## Acceptance Criteria
+## 核心功能
 
-- [ ] Existing sentences are visible when the page loads (from the database)
-- [ ] After submitting, both the user's sentence and the AI's continuation appear in the list
-- [ ] The AI's continuation is coherent with the story context
-- [ ] After reset, the story is empty
+### 1. 查看当前故事
+
+- 打开页面，按时间顺序查看所有已有句子
+- 每句话显示：内容、作者（用户名）、时间戳、来源（人类 / AI）
+
+### 2. 添加句子
+
+- 表单：输入用户名 + 一句话来续写故事
+- 提交后：
+  1. 用户的句子保存到数据库
+  2. 自动调用 Qwen AI，根据上下文续写下一句
+  3. AI 的句子也保存到数据库
+  4. 页面刷新，显示更新后的故事
+
+### 3. 重置故事
+
+- "重新开始"按钮清空所有句子，故事可以重新开始
 
 ---
 
-## Out of Scope
+## 验收标准
 
-- No login / account system
-- No multiple parallel stories
-- No editing or deleting individual sentences
+- [ ] 页面加载时，已有句子可见（来自数据库）
+- [ ] 提交后，用户的句子和 AI 的续写都出现在列表中
+- [ ] AI 的续写与故事上下文连贯
+- [ ] 重置后，故事为空
+
+---
+
+## 范围外
+
+- 无登录 / 账号系统
+- 无多条并行故事
+- 无编辑或删除单条句子
